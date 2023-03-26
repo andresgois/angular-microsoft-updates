@@ -13,9 +13,13 @@ export class ItemService {
 
   constructor(private httpClient: HttpClient) {  }
 
-  listar():Observable<Item[]>{
-    let url = `${this.baseUrl}/${this.endpoint}`;
-    console.log("URL ",url);
+  listar(pagina: Number):Observable<Item[]>{
+    let url = `${this.baseUrl}/${this.endpoint}?page=`+pagina;
+    return this.httpClient.get<Item[]>(url);
+  }
+
+  buscarPorAlias(alias):Observable<Item[]>{
+    let url = `${this.baseUrl}/${this.endpoint}?alias=`+alias;
     return this.httpClient.get<Item[]>(url);
   }
 }

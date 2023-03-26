@@ -1,4 +1,3 @@
-
 <mat-toolbar>
   <span>Listar de Itens</span>
 </mat-toolbar>
@@ -8,7 +7,30 @@
 </ng-template>
 
 <div class="componente-container">
-  <div *ngIf="itens$ | async as itens; else loading">
+  <form
+    [formGroup]="formGroupPesquisa"
+    (ngSubmit)="formGroupPesquisa.valid && buscaPorAlias()"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="alias"
+        formControlName="alias"
+        autocomplete="off"
+      />
+
+    </mat-form-field>
+    <button mat-raised-button color="primary">Pesquisar</button>
+    <button
+      mat-raised-button
+      type="button"
+      color="secondary"
+      (click)="limparPesquisa()"
+    >
+      Limpar
+    </button>
+  </form>
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="identificador">
@@ -46,28 +68,15 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-</div>
-</div>
-<!--
-<div class="componente-container">
-  <div *ngIf="itens$ | async as itens; else loading">
 
-    <table mat-table [dataSource]="itens">
-      <ng-container matColumnDef="identificador">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let item">{{item.identificador}}</td>
-      </ng-container>
-      <ng-container matColumnDef="idObj">
-        <th mat-header-cell *matHeaderCellDef>Id Obj</th>
-        <td mat-cell *matCellDef="let item">{{item.idObj}}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="colunasTabela"></tr>
-      <tr mat-row *matRowDef="let row; columns: colunasTabela"></tr>
-    </table>
-
+  <div class="center">
+      <mat-paginator
+      [length]="90"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page"
+      (page)="pageEvent = $event; listarItens()"
+    >
+    </mat-paginator>
   </div>
-</div>-->
-<!-- <li *ngFor="let item of itens">{{item.idObj}}</li>-->
-<!--<ul *ngIf="itens$ | async as itens; else loading">
-    <li *ngFor="let item of itens">{{item.idObj}}</li>
-  </ul> -->
+</div>
