@@ -1,7 +1,6 @@
 export interface Item {
 
-  identificador: Number,
-  idObj: String,
+  id: String,
   alias: String,
   documentTitle: String,
   severity: String,

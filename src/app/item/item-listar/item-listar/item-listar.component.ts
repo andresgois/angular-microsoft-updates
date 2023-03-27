@@ -12,7 +12,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class ItemListarComponent implements OnInit {
 
-  displayedColumns: string[] = ['identificador','alias','documentTitle','initialReleaseDate','currentReleaseDate', 'cvrfUrl'];
+  displayedColumns: string[] = ['id','alias','documentTitle','initialReleaseDate','currentReleaseDate', 'cvrfUrl'];
   itens$: Observable<Item[]>;
   dataSource:Item[] = []
   formGroupPesquisa: FormGroup;
@@ -23,14 +23,14 @@ export class ItemListarComponent implements OnInit {
 
   ngOnInit() {
     this.formGroupPesquisa = this.formBuilder.group({
-      alias: [null]
+      pesquisar: [null]
     })
     this.listarItens()
   }
 
-  buscaPorAlias(){
-    if(this.formGroupPesquisa.value.alias){
-      this.itens$ = this.itemService.buscarPorAlias(this.formGroupPesquisa.value.alias)
+  pesquisarCampos(){
+    if(this.formGroupPesquisa.value.pesquisar){
+      this.itens$ = this.itemService.pesquisa(this.formGroupPesquisa.value.pesquisar)
       this.itens$.subscribe( value => {
         this.dataSource = value["content"]
       });

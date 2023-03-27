@@ -18,8 +18,8 @@ export class ItemService {
     return this.httpClient.get<Item[]>(url);
   }
 
-  buscarPorAlias(alias):Observable<Item[]>{
-    let url = `${this.baseUrl}/${this.endpoint}?alias=`+alias;
+  pesquisa(pesquisar):Observable<Item[]>{
+    let url = `${this.baseUrl}/${this.endpoint}?pesquisa=`+pesquisar;
     return this.httpClient.get<Item[]>(url);
   }
 }
